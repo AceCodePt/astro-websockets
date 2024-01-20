@@ -1,4 +1,5 @@
 ---
+import "../server/websocket"
 ---
 
 <html lang="en">
@@ -13,21 +14,24 @@
 
 		<hr />
 
-		<h2>Data from the WebSocket server (ws://localhost:5002)</h2>
+		<h2>Data from the WebSocket server (ws://localhost:5000)</h2>
 		<pre id="ws">Awaiting message…</pre>
 	</body>
 </html>
 
 <script>
 	/* === WEB SOCKET === */
-
+	//
 	import { io } from "socket.io-client";
-	import { WEB_SOCKET_DEV_URL } from "../../consts.js";
 
 	let ioClient: ReturnType<typeof io> | undefined;
+	const wsUrl = new URL(origin);
+	if(wsUrl.port){
+		wsUrl.port = (+wsUrl.port + 1).toString()
+	}
 
 	try {
-		ioClient = io(WEB_SOCKET_DEV_URL);
+		ioClient = io(wsUrl.toString());
 	} catch (e) {
 		console.error(e);
 	}

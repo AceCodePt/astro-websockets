@@ -8,12 +8,14 @@
 		"start": "astro dev",
 		"build": "astro build",
 		"preview": "astro preview",
-		"astro": "astro"
+		"astro": "astro",
+		"prod": "node ./run-server.js"
 	},
 	"dependencies": {
+		"@astrojs/node": "^8.0.0",
 		"@fastify/cors": "^8.2.1",
-		"astro": "^2.0.18",
-		"astro-sidecar": "latest",
+		"astro": "^4.2.1",
+		"express": "^4.18.2",
 		"fastify": "^4.14.1",
 		"kleur": "^4.1.5",
 		"socket.io": "^4.6.1",
@@ -21,6 +23,8 @@
 		"wscat": "^5.2.0"
 	},
 	"devDependencies": {
-		"tsx": "^3.12.5"
+		"@types/express": "^4.17.21",
+		"tsx": "^3.12.5",
+		"vite": "^5.0.12"
 	}
 }

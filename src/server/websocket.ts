@@ -1,17 +1,22 @@
 import kleur from "kleur";
-
 import { Server } from "socket.io";
-import { WEB_SOCKET_DEV_PORT, WEB_SOCKET_DEV_URL } from "../../consts.js";
 
-console.log(kleur.bold().cyan("Starting sidecar: WebSocket server…"));
-console.log(kleur.cyan(WEB_SOCKET_DEV_URL));
+let ioServer: Server;
 
-const ioServer = new Server(WEB_SOCKET_DEV_PORT, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
+if (process.env.NODE_ENV === "development" || !process.env.NODE_ENV) {
+  ioServer = new Server(5001, {
+    cors: {
+      origin: "*",
+    },
+  });
+} else {
+  const expressServer = await import("../../run-server.js").then(
+    (mod) => mod.default
+  );
+  ioServer = new Server(expressServer);
+}
+
+console.log("doing this again");
 
 const sequenceNumberByClient = new Map();
 

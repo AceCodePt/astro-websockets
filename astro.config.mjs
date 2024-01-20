@@ -1,19 +1,16 @@
 import { defineConfig } from "astro/config";
-import sidecar from "astro-sidecar";
+import node from "@astrojs/node";
+import { loadEnv } from "vite";
+const { PORT } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
-  server: {
-    port: 5000,
-  },
+  output: "server",
+  adapter: node({
+    mode: "middleware",
+  }),
 
-  integrations: [
-    //
-    sidecar({
-      entryPoints: [
-        //
-        "./src/server/websocket.ts",
-      ],
-    }),
-  ],
+  server: {
+    port: +(PORT || process.env.PORT || 5000),
+  },
 });

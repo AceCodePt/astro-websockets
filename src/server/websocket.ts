@@ -9,11 +9,13 @@ if (process.env.NODE_ENV === "development" || !process.env.NODE_ENV) {
       origin: "*",
     },
   });
+  console.log("dev websocket server");
 } else {
   const expressServer = await import("../../run-server.js").then(
     (mod) => mod.default
   );
   ioServer = new Server(expressServer);
+  console.log("prod websocket server");
 }
 
 console.log("doing this again");

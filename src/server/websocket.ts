@@ -3,7 +3,7 @@ import { Server } from "socket.io";
 
 let ioServer: Server;
 
-if (process.env.NODE_ENV === "development" || !process.env.NODE_ENV) {
+if ((import.meta as any).env.DEV) {
   ioServer = new Server(5001, {
     cors: {
       origin: "*",
@@ -11,9 +11,9 @@ if (process.env.NODE_ENV === "development" || !process.env.NODE_ENV) {
   });
   console.log("dev websocket server");
 } else {
-  const expressServer = await import("../../run-server.js").then(
-    (mod) => mod.default
-  );
+  /* @vite-ignore */
+  const path = "../../../../run-server.mjs";
+  const expressServer = await import(path).then((mod) => mod.default);
   ioServer = new Server(expressServer);
   console.log("prod websocket server");
 }

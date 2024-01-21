@@ -9,7 +9,7 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"prod": "node ./run-server.js"
+		"prod": "node ./run-server.mjs"
 	},
 	"dependencies": {
 		"@astrojs/node": "^8.0.0",

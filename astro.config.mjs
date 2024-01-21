@@ -9,6 +9,17 @@ export default defineConfig({
   adapter: node({
     mode: "middleware",
   }),
+  // integrations: [
+  //   {
+  //     name: "sockets",
+  //     hooks: {
+  //       "astro:server:setup": ({ server }) => {
+  //         server.
+  //         server.middlewares.use(apiProxy);
+  //       },
+  //     },
+  //   },
+  // ],
 
   server: {
     port: +(PORT || process.env.PORT || 5000),
